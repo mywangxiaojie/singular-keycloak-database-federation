@@ -2,6 +2,8 @@ package org.opensingular.dbuserprovider.model;
 
 import org.opensingular.dbuserprovider.persistence.RDBMS;
 
+import java.security.*;
+
 public class QueryConfigurations {
 
     private String count;
@@ -11,11 +13,12 @@ public class QueryConfigurations {
     private String findBySearchTerm;
     private String findPasswordHash;
     private String hashFunction;
+    private PrivateKey findRsaPrivateKey;
     private RDBMS  RDBMS;
     private boolean allowKeycloakDelete;
     private boolean allowDatabaseToOverwriteKeycloak;
 
-    public QueryConfigurations(String count, String listAll, String findById, String findByUsername, String findBySearchTerm, String findPasswordHash, String hashFunction, RDBMS RDBMS, boolean allowKeycloakDelete, boolean allowDatabaseToOverwriteKeycloak) {
+    public QueryConfigurations(String count, String listAll, String findById, String findByUsername, String findBySearchTerm, String findPasswordHash, String hashFunction, PrivateKey findRsaPrivateKey, RDBMS RDBMS, boolean allowKeycloakDelete, boolean allowDatabaseToOverwriteKeycloak) {
         this.count = count;
         this.listAll = listAll;
         this.findById = findById;
@@ -23,6 +26,7 @@ public class QueryConfigurations {
         this.findBySearchTerm = findBySearchTerm;
         this.findPasswordHash = findPasswordHash;
         this.hashFunction = hashFunction;
+        this.findRsaPrivateKey = findRsaPrivateKey;
         this.RDBMS = RDBMS;
         this.allowKeycloakDelete = allowKeycloakDelete;
         this.allowDatabaseToOverwriteKeycloak = allowDatabaseToOverwriteKeycloak;
@@ -58,6 +62,10 @@ public class QueryConfigurations {
 
     public String getHashFunction() {
         return hashFunction;
+    }
+
+    public PrivateKey getFindRsaPrivateKey() {
+        return findRsaPrivateKey;
     }
 
     public boolean isBlowfish() {

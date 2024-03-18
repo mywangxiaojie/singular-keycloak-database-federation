@@ -13,7 +13,9 @@ import org.keycloak.storage.UserStorageProviderFactory;
 import org.opensingular.dbuserprovider.model.QueryConfigurations;
 import org.opensingular.dbuserprovider.persistence.DataSourceProvider;
 import org.opensingular.dbuserprovider.persistence.RDBMS;
+import org.opensingular.dbuserprovider.util.RSAUtils;
 
+import java.security.PrivateKey;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,13 +52,14 @@ public class DBUserStorageProviderFactory implements UserStorageProviderFactory<
         return new DBUserStorageProvider(session, model, providerConfig.dataSourceProvider, providerConfig.queryConfigurations);
     }
     
-    private synchronized ProviderConfig configure(ComponentModel model) {
+    private synchronized ProviderConfig configure(ComponentModel model){
         log.infov("Creating configuration for model: id={0} name={1}", model.getId(), model.getName());
         ProviderConfig providerConfig = new ProviderConfig();
         String         user           = model.get("user");
         String         password       = model.get("password");
         String         url            = model.get("url");
         RDBMS          rdbms          = RDBMS.getByDescription(model.get("rdbms"));
+        PrivateKey     privateKey     = RSAUtils.getPrivateKey(model.get("findRsaPrivateKey"));
         providerConfig.dataSourceProvider.configure(url, rdbms, user, password, model.getName());
         providerConfig.queryConfigurations = new QueryConfigurations(
                 model.get("count"),
@@ -66,6 +69,7 @@ public class DBUserStorageProviderFactory implements UserStorageProviderFactory<
                 model.get("findBySearchTerm"),
                 model.get("findPasswordHash"),
                 model.get("hashFunction"),
+                privateKey,
                 rdbms,
                 model.get("allowKeycloakDelete", false),
                 model.get("allowDatabaseToOverwriteKeycloak", false)
@@ -217,8 +221,15 @@ public class DBUserStorageProviderFactory implements UserStorageProviderFactory<
                                            .label("Password hash function")
                                            .helpText("Hash type used to match passwrod (md* e sha* uses hex hash digest)")
                                            .type(ProviderConfigProperty.LIST_TYPE)
-                                           .options("Blowfish (bcrypt)", "MD2", "MD5", "SHA-1", "SHA-256", "SHA3-224", "SHA3-256", "SHA3-384", "SHA3-512", "SHA-384", "SHA-512/224", "SHA-512/256", "SHA-512", "PBKDF2-SHA256")
+                                           .options("Blowfish (bcrypt)", "MD2", "MD5", "SHA-1", "SHA-256", "SHA3-224", "SHA3-256", "SHA3-384", "SHA3-512", "SHA-384", "SHA-512/224", "SHA-512/256", "SHA-512", "PBKDF2-SHA256", "RSA")
                                            .defaultValue("SHA-1")
+                                           .add()
+                                           .property()
+                                           .name("findRsaPrivateKey")
+                                           .label("set Rsa Private Key")
+                                           .helpText(DEFAULT_HELP_TEXT + String.format(PARAMETER_HELP, "search term") + PARAMETER_PLACEHOLDER_HELP)
+                                           .type(ProviderConfigProperty.STRING_TYPE)
+                                           .defaultValue("Private Key")
                                            .add()
                                            .build();
     }
