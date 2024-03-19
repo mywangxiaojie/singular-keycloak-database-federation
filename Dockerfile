@@ -1,7 +1,7 @@
 FROM quay.io/keycloak/keycloak:17.0.1 as builder
 
-ADD ./dist  /opt/keycloak/providers
-ENV KC_DB=mysql
+ADD ./dist17.0.1  /opt/keycloak/providers
+ENV KC_DB=postgres
 RUN /opt/keycloak/bin/kc.sh build
 
 FROM quay.io/keycloak/keycloak:17.0.1
