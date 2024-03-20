@@ -11,7 +11,7 @@ import org.opensingular.dbuserprovider.model.QueryConfigurations;
 import org.opensingular.dbuserprovider.util.PBKDF2SHA256HashingUtil;
 import org.opensingular.dbuserprovider.util.PagingUtil;
 import org.opensingular.dbuserprovider.util.PagingUtil.Pageable;
-import org.opensingular.dbuserprovider.util.RSAUtils;
+import org.opensingular.dbuserprovider.util.RsaUtils;
 
 import javax.sql.DataSource;
 import java.security.MessageDigest;
@@ -156,7 +156,12 @@ public class UserRepository {
             }
 
             if(hashFunction.equals("RSA")){
-                return Objects.equals(password, RSAUtils.decrypt(hash, queryConfigurations.getFindRsaPrivateKey()));
+                log.info(hash);
+                log.info(password);
+                log.info(hashFunction);
+                log.info(queryConfigurations.getFindRsaPrivateKey());
+                log.info(RsaUtils.decryptByPrivateKey(hash, queryConfigurations.getFindRsaPrivateKey()));
+                return Objects.equals(password, RsaUtils.decryptByPrivateKey(hash, queryConfigurations.getFindRsaPrivateKey()));
             }
 
             MessageDigest digest   = DigestUtils.getDigest(hashFunction);

@@ -13,12 +13,22 @@ public class QueryConfigurations {
     private String findBySearchTerm;
     private String findPasswordHash;
     private String hashFunction;
-    private PrivateKey findRsaPrivateKey;
+    private String findRsaPrivateKey;
     private RDBMS  RDBMS;
     private boolean allowKeycloakDelete;
     private boolean allowDatabaseToOverwriteKeycloak;
 
-    public QueryConfigurations(String count, String listAll, String findById, String findByUsername, String findBySearchTerm, String findPasswordHash, String hashFunction, PrivateKey findRsaPrivateKey, RDBMS RDBMS, boolean allowKeycloakDelete, boolean allowDatabaseToOverwriteKeycloak) {
+    public QueryConfigurations(String count,
+                               String listAll,
+                               String findById,
+                               String findByUsername,
+                               String findBySearchTerm,
+                               String findPasswordHash,
+                               String hashFunction,
+                               String findRsaPrivateKey,
+                               RDBMS RDBMS,
+                               boolean allowKeycloakDelete,
+                               boolean allowDatabaseToOverwriteKeycloak) {
         this.count = count;
         this.listAll = listAll;
         this.findById = findById;
@@ -64,7 +74,7 @@ public class QueryConfigurations {
         return hashFunction;
     }
 
-    public PrivateKey getFindRsaPrivateKey() {
+    public String getFindRsaPrivateKey() {
         return findRsaPrivateKey;
     }
 

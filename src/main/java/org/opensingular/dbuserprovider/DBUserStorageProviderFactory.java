@@ -13,9 +13,7 @@ import org.keycloak.storage.UserStorageProviderFactory;
 import org.opensingular.dbuserprovider.model.QueryConfigurations;
 import org.opensingular.dbuserprovider.persistence.DataSourceProvider;
 import org.opensingular.dbuserprovider.persistence.RDBMS;
-import org.opensingular.dbuserprovider.util.RSAUtils;
 
-import java.security.PrivateKey;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,7 +57,6 @@ public class DBUserStorageProviderFactory implements UserStorageProviderFactory<
         String         password       = model.get("password");
         String         url            = model.get("url");
         RDBMS          rdbms          = RDBMS.getByDescription(model.get("rdbms"));
-        PrivateKey     privateKey     = RSAUtils.getPrivateKey(model.get("findRsaPrivateKey"));
         providerConfig.dataSourceProvider.configure(url, rdbms, user, password, model.getName());
         providerConfig.queryConfigurations = new QueryConfigurations(
                 model.get("count"),
@@ -69,7 +66,7 @@ public class DBUserStorageProviderFactory implements UserStorageProviderFactory<
                 model.get("findBySearchTerm"),
                 model.get("findPasswordHash"),
                 model.get("hashFunction"),
-                privateKey,
+                model.get("findRsaPrivateKey"),
                 rdbms,
                 model.get("allowKeycloakDelete", false),
                 model.get("allowDatabaseToOverwriteKeycloak", false)
@@ -226,10 +223,10 @@ public class DBUserStorageProviderFactory implements UserStorageProviderFactory<
                                            .add()
                                            .property()
                                            .name("findRsaPrivateKey")
-                                           .label("set Rsa Private Key")
+                                           .label("Set Rsa PrivateKey")
                                            .helpText(DEFAULT_HELP_TEXT + String.format(PARAMETER_HELP, "search term") + PARAMETER_PLACEHOLDER_HELP)
                                            .type(ProviderConfigProperty.STRING_TYPE)
-                                           .defaultValue("Private Key")
+                                           .defaultValue("")
                                            .add()
                                            .build();
     }
