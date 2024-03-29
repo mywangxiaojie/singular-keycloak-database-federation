@@ -12,6 +12,11 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.keycloak:keycloak-core:17.0.1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.keycloak:keycloak-common:17.0.1" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.12.1" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.12.1" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.keycloak:keycloak-server-spi:17.0.1" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.keycloak:keycloak-core:17.0.1" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.keycloak:keycloak-common:17.0.1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.sun.activation:jakarta.activation:1.2.2" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.bouncycastle:bcprov-jdk15on:1.68" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.bouncycastle:bcpkix-jdk15on:1.68" level="project" />

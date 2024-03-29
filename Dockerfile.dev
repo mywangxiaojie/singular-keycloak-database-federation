@@ -1,0 +1,10 @@
+FROM quay.io/keycloak/keycloak:17.0.1 as builder
+
+
+WORKDIR /opt/keycloak
+ADD ./dist  /opt/keycloak/providers
+ENV KC_DB=postgres
+
+EXPOSE 8080
+
+ENTRYPOINT ["/opt/keycloak/bin/kc.sh", "start-dev"]
