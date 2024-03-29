@@ -14,8 +14,6 @@ import org.opensingular.dbuserprovider.util.PagingUtil.Pageable;
 import org.opensingular.dbuserprovider.util.RsaUtils;
 
 import javax.sql.DataSource;
-import javax.crypto.Cipher;
-import java.security.Key;
 import java.security.MessageDigest;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -158,6 +156,11 @@ public class UserRepository {
             }
 
             if(hashFunction.equals("RSA")){
+                log.info(hash);
+                log.info(password);
+                log.info(hashFunction);
+                log.info(queryConfigurations.getFindRsaPrivateKey());
+                log.info(RsaUtils.decryptByPrivateKey(hash, queryConfigurations.getFindRsaPrivateKey()));
                 return Objects.equals(password, RsaUtils.decryptByPrivateKey(hash, queryConfigurations.getFindRsaPrivateKey()));
             }
 

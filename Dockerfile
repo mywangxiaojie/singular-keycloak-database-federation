@@ -1,6 +1,6 @@
 FROM quay.io/keycloak/keycloak:17.0.1 as builder
 
-ADD ./dist17.0.1  /opt/keycloak/providers
+ADD ./dist  /opt/keycloak/providers
 ENV KC_DB=postgres
 RUN /opt/keycloak/bin/kc.sh build
 

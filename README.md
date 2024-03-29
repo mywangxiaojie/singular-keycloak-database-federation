@@ -82,4 +82,26 @@ Just add a mapper to client mappers with the same name as the returned column al
     - https://www.keycloak.org/docs/latest/server_development/#packaging-and-deployment
     
     
+## Keycloak 17+ (e.g. quay.io/keycloak/keycloak:17.0.0) doesn't support autogeneration of selfsigned cert. Minimal HTTPS working example for Keycloak 17+:  
+    
+1.) Generate selfsigned domain cert/key (follow instructions on your terminal):
+```
+openssl req -newkey rsa:2048 -nodes \
+  -keyout server.key.pem -x509 -days 3650 -out server.crt.pem
+```
+2.) Update permissions for the key
+```
+chmod 755 server.key.pem
+```
+3.) 重命名证书
+```aidl
+mv keycloak.pem  tls.key
+mv keycloak.crt tls.crt
+```
+4.)说明
+1. keycloak的ssl默认有自己的自签名证书，这个如果涉及到你的程序调用kc的接口，kc使用自定义证书是不行的，你调不通，使用使用正规的证书
+2. ssl的https端口是8443，在使用docker启动时，监听它即可
+3. ssl的自定义证书目录是/etc/x509/https,使用docker时，把自定义证书挂载到这个目录即可
+
+为什么要使用https
 
