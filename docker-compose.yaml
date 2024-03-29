@@ -72,8 +72,10 @@ services:
     volumes:
       # - ./server.crt.pem:/opt/keycloak/conf/tls.crt
       # - ./server.key.pem:/opt/keycloak/conf/tls.key
-      - ./server.crt.pem:/etc/x509/https/tls.crt
-      - ./server.key.pem:/etc/x509/https/tls.key
+#      - ./server.crt.pem:/etc/x509/https/tls.crt
+#      - ./server.key.pem:/etc/x509/https/tls.key
+      - ./keycloak.server.crt:/etc/x509/https/tls.crt
+      - ./keycloak.server.key:/etc/x509/https/tls.key
       
 
   prometheus:
