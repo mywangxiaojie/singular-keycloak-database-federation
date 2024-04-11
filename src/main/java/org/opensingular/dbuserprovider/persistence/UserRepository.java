@@ -152,15 +152,10 @@ public class UserRepository {
 
             if(hashFunction.equals("PBKDF2-SHA256")){
                 String[] components = hash.split("\\$");
-                return new PBKDF2SHA256HashingUtil(password, components[2], Integer.valueOf(components[1])).validatePassword(components[3]);
+                String[] methods = components[0].split(":");
+                return new PBKDF2SHA256HashingUtil(password, components[1], Integer.parseInt(methods[2])).validatePassword(components[2], queryConfigurations.getCipherTextType());
             }
-
             if(hashFunction.equals("RSA")){
-                log.info(hash);
-                log.info(password);
-                log.info(hashFunction);
-                log.info(queryConfigurations.getFindRsaPrivateKey());
-                log.info(RsaUtils.decryptByPrivateKey(hash, queryConfigurations.getFindRsaPrivateKey()));
                 return Objects.equals(password, RsaUtils.decryptByPrivateKey(hash, queryConfigurations.getFindRsaPrivateKey()));
             }
 

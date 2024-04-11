@@ -67,6 +67,7 @@ public class DBUserStorageProviderFactory implements UserStorageProviderFactory<
                 model.get("findPasswordHash"),
                 model.get("hashFunction"),
                 model.get("findRsaPrivateKey"),
+                model.get("cipherTextType"),
                 rdbms,
                 model.get("allowKeycloakDelete", false),
                 model.get("allowDatabaseToOverwriteKeycloak", false)
@@ -213,6 +214,7 @@ public class DBUserStorageProviderFactory implements UserStorageProviderFactory<
                                            .type(ProviderConfigProperty.STRING_TYPE)
                                            .defaultValue("select hash_pwd from users where \"username\" = ? ")
                                            .add()
+
                                            .property()
                                            .name("hashFunction")
                                            .label("Password hash function")
@@ -221,6 +223,16 @@ public class DBUserStorageProviderFactory implements UserStorageProviderFactory<
                                            .options("Blowfish (bcrypt)", "MD2", "MD5", "SHA-1", "SHA-256", "SHA3-224", "SHA3-256", "SHA3-384", "SHA3-512", "SHA-384", "SHA-512/224", "SHA-512/256", "SHA-512", "PBKDF2-SHA256", "RSA")
                                            .defaultValue("SHA-1")
                                            .add()
+
+                                           .property()
+                                           .name("cipherTextType")
+                                           .label("PasswordHash")
+                                           .helpText("PBKDF2-SHA256加密算法的密文输出格式")
+                                           .type(ProviderConfigProperty.LIST_TYPE)
+                                           .options("Base64", "HEX")
+                                           .defaultValue("HEX")
+                                           .add()
+                                           
                                            .property()
                                            .name("findRsaPrivateKey")
                                            .label("Set Rsa PrivateKey")

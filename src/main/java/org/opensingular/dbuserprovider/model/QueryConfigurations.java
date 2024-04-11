@@ -14,6 +14,7 @@ public class QueryConfigurations {
     private String findPasswordHash;
     private String hashFunction;
     private String findRsaPrivateKey;
+    private String cipherTextType;
     private RDBMS  RDBMS;
     private boolean allowKeycloakDelete;
     private boolean allowDatabaseToOverwriteKeycloak;
@@ -26,6 +27,7 @@ public class QueryConfigurations {
                                String findPasswordHash,
                                String hashFunction,
                                String findRsaPrivateKey,
+                               String cipherTextType,
                                RDBMS RDBMS,
                                boolean allowKeycloakDelete,
                                boolean allowDatabaseToOverwriteKeycloak) {
@@ -37,6 +39,7 @@ public class QueryConfigurations {
         this.findPasswordHash = findPasswordHash;
         this.hashFunction = hashFunction;
         this.findRsaPrivateKey = findRsaPrivateKey;
+        this.cipherTextType = cipherTextType;
         this.RDBMS = RDBMS;
         this.allowKeycloakDelete = allowKeycloakDelete;
         this.allowDatabaseToOverwriteKeycloak = allowDatabaseToOverwriteKeycloak;
@@ -76,6 +79,10 @@ public class QueryConfigurations {
 
     public String getFindRsaPrivateKey() {
         return findRsaPrivateKey;
+    }
+
+    public String getCipherTextType() {
+        return cipherTextType;
     }
 
     public boolean isBlowfish() {
